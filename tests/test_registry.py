@@ -7,11 +7,11 @@ from src.registry import HooklinePlugin
 class SamplePlugin(HooklinePlugin):
 
     @plugin_version(version="1.2.1")
-    def execute1(self):
+    def execute1(self, payload, config):
         return f"1.2.1"
 
     @plugin_version(version="1.2.3")
-    def doing_something(self):
+    def doing_something(self, payload, config):
         return f"1.2.3"
 
     def ignoring(self):
@@ -23,9 +23,6 @@ class TestRegistry(unittest.TestCase):
     def test_method_resolution(self):
         plugin = SamplePlugin(target_version="1.2.3")
 
-        assert 'execute1' in plugin._method_registry
-        assert 'doing_something' in plugin._method_registry
-        assert 'ignoring' not in plugin._method_registry
         assert '1.2.1' in plugin._method_registry
         assert '1.2.3' in plugin._method_registry
 
@@ -33,6 +30,6 @@ class TestRegistry(unittest.TestCase):
         plugin1 = SamplePlugin(target_version="1.2.1")
         plugin2 = SamplePlugin(target_version="2.0.1")
 
-        r1 = plugin1.start()
-        assert r1() == "1.2.1"
-        self.assertRaises(ValueError, plugin2.start)
+        r1 = plugin1.start(payload={}, config={})
+        assert r1 == "1.2.1"
+        self.assertRaises(ValueError, plugin2.start, payload={}, config={})

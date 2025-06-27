@@ -11,7 +11,8 @@ class HooklinePlugin:
         self._scan_methods()
 
     def start(self, payload: dict, config: dict):
-        return self._resolve_version()(payload, config)
+        func = self._resolve_version()
+        return func(payload=payload, config=config)
 
     def _scan_methods(self):
         for _, method in inspect.getmembers(self, predicate=inspect.ismethod):
