@@ -10,8 +10,8 @@ class HooklinePlugin:
         self.target_version = target_version
         self._scan_methods()
 
-    def start(self):
-        return self._resolve_version()
+    def start(self, payload: dict, config: dict):
+        return self._resolve_version()(payload, config)
 
     def _scan_methods(self):
         for _, method in inspect.getmembers(self, predicate=inspect.ismethod):
