@@ -1,5 +1,5 @@
 import unittest
-from src.decorators import plugin_version
+from src.hookline_sdk.decorators import plugin_version
 
 class TestDecorators(unittest.TestCase):
     def test_decorator_adds_data(self):

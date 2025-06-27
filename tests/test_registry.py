@@ -1,7 +1,7 @@
 import unittest
 
-from src.decorators import plugin_version
-from src.registry import HooklinePlugin
+from src.hookline_sdk.decorators import plugin_version
+from src.hookline_sdk.registry import HooklinePlugin
 
 
 class SamplePlugin(HooklinePlugin):
